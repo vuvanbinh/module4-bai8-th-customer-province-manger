@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer detail</title>
+</head>
+<body>
+<div>
+    <h1>Delete customer</h1>
+    <a href="/customers">Back to customer list</a><br><br>
+</div>
+<div>
+    <fieldset style="width: 40%">
+        <legend>Information</legend>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td th:text="${customer.name}"></td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td th:text="${customer.age}"></td>
+            </tr>
+            <tr>
+                <td>Province:</td>
+                <td th:text="${customer.province.name}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><img th:src="@{'/image/'+${customer.img}}" width="250px" height="250px"></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+</body>
+</html>

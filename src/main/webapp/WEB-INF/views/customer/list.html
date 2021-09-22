@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div style="text-align: center">
+  <h1>Customers</h1>
+  <div>
+    <a href="/customers/create">Create new customer</a>
+  </div>
+  <div>
+    <a href="/provinces">Province List</a>
+  </div>
+  <br>
+  <div style="size: 17px;color: #ff00b2">
+    <div th:if="${message}">
+      <span th:text="${message}"></span>
+    </div>
+  </div>
+  <br>
+  <div th:if="${back}">
+    <a th:href="@{/customers}" >Customer list</a>
+  </div>
+  <br>
+  <form>
+    Search by first name:
+    <input name="search" type="text"/>
+    <input type="submit" value="Search"/>
+  </form>
+  <br/>
+</div>
+<table border="1" width="99%">
+  <tr>
+    <th>STT</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Province</th>
+    <th>Image</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    <th>Detail</th>
+  </tr>
+  <th:block th:each="cus,cuStat : ${customers}">
+    <tr>
+      <td th:text="${cuStat.count}"></td>
+      <td th:text="${cus.name}"></td>
+      <td th:text="${cus.age}"></td>
+      <td th:if="${cus.province}" th:text="${cus.province.name}"></td>
+      <td><img th:src="@{'/image/'+${cus.img}}" width="150px" height="150px" alt=""></td>
+      <td th:unless="${cus.province}"></td>
+      <td><a th:href="@{/customers/{id}/edit(id=${cus.getId()})}">Edit</a></td>
+      <td><a th:href="@{/customers/{id}/delete(id=${cus.getId()})}">Delete</a></td>
+      <td><a th:href="@{/customers/{id}/detail(id=${cus.getId()})}">Detail</a></td>
+    </tr>
+  </th:block>
+</table>
+<div style="text-align: center">
+  <a th:href="@{'/customers'(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}"><button>Previous</button></a>
+  <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
+  <a th:href="@{'/customers'(page=${customers.number + 1})}" th:if="${customers.hasNext()}"><button>Next</button></a>
+</div>
+</body>
+</html>
